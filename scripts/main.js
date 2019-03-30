@@ -17,19 +17,28 @@ function createDivs(numBox){
         con.appendChild(vdiv);
     }
 
-
     let hoverDivs = document.querySelectorAll(".target-divs");
+    let colorBtn = document.querySelector("#color-button");
     let clearBtn = document.querySelector("#clear-button");
+    let eraserBtn = document.querySelector("#eraser-button");
 
     hoverDivs.forEach(tarDiv => {
         tarDiv.addEventListener('mouseover',function(){
             tarDiv.style.backgroundColor = 'purple';
         });
+        colorBtn.addEventListener('click',function(){
+            tarDiv.addEventListener('mouseover',function(){
+                tarDiv.style.backgroundColor = 'purple';
+            });
+        })
         clearBtn.addEventListener('click',function(){
             tarDiv.style.backgroundColor = 'white';
         })
-        
-    
+        eraserBtn.addEventListener('click',function(){
+            tarDiv.addEventListener('mouseover',function(){
+                tarDiv.style.backgroundColor = 'white';
+            });
+        });
     });
 }
 
