@@ -12,23 +12,25 @@ function createDivs(numBox){
             hdiv.style.border = "1px solid black";
             hdiv.style.height = `${CONTAINER_HEIGHT/numBox}px`;
             hdiv.style.width = `${CONTAINER_WIDTH/numBox}px`;
+            hdiv.style.backgroundColor = 'white';
             vdiv.appendChild(hdiv);
         }
         con.appendChild(vdiv);
     }
 
     let hoverDivs = document.querySelectorAll(".target-divs");
-    let colorBtn = document.querySelector("#color-button");
+    let drawBtn = document.querySelector("#draw-button");
     let clearBtn = document.querySelector("#clear-button");
     let eraserBtn = document.querySelector("#eraser-button");
-
+    let randomBtn = document.querySelector("#random-button");
+    
     hoverDivs.forEach(tarDiv => {
         tarDiv.addEventListener('mouseover',function(){
-            tarDiv.style.backgroundColor = 'purple';
+            tarDiv.style.backgroundColor = 'black';
         });
-        colorBtn.addEventListener('click',function(){
+        drawBtn.addEventListener('click',function(){
             tarDiv.addEventListener('mouseover',function(){
-                tarDiv.style.backgroundColor = 'purple';
+                tarDiv.style.backgroundColor = 'black';
             });
         })
         clearBtn.addEventListener('click',function(){
@@ -39,6 +41,11 @@ function createDivs(numBox){
                 tarDiv.style.backgroundColor = 'white';
             });
         });
+        randomBtn.addEventListener('click',function(){
+            tarDiv.addEventListener('mouseover',function(){
+                tarDiv.style.backgroundColor = getRandomColor();
+            });            
+        })
     });
 }
 
@@ -49,6 +56,21 @@ function resetDivs(numBox){
     createDivs(numBox);
 }
 
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
+}
+
+
 
 //Main
 const CONTAINER_HEIGHT = 480;
@@ -58,9 +80,20 @@ createDivs(14);
 
 let resetBtn = document.querySelector("#reset-button");
 resetBtn.addEventListener('click',function(){
-    numBox = prompt("How many boxes in each row? ",'');
+    do{
+        numBox = prompt("How many boxes in each row? (select something above 0) ",'');
+    } while(numBox < 1);
     resetDivs(numBox);
 })
+
+let btns = document.querySelectorAll(".btn");
+btns.forEach(btn => {
+    btn.addEventListener('click',function(){
+        btn.classList.add('playing');
+        btn.addEventListener('transitionend', removeTransition);
+    })
+})
+
 
 
 
