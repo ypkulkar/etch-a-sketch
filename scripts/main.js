@@ -81,8 +81,8 @@ createDivs(14);
 let resetBtn = document.querySelector("#reset-button");
 resetBtn.addEventListener('click',function(){
     do{
-        numBox = prompt("How many boxes in each row? (select something above 0) ",'');
-    } while(numBox < 1);
+        numBox = prompt("How many boxes in each row? (select something above 0 and below 50): ",'');
+    } while(numBox < 1 || numBox > 50);
     resetDivs(numBox);
 })
 
